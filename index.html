@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>常州大学·赛事猎手</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <h1>常州大学·赛事猎手</h1>
+    </div>
+    <p class="meta" id="meta-line">数据加载中…</p>
+    <p class="warn" id="warn-bar">⚠ 数据仅供筛选，报名以当届官方简章为准；标黄「推定」的档位必须核简章。</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="kpis" id="kpis"></section>
+
+  <nav class="tabs" id="tabs">
+    <button data-tab="time" class="active">时间报表</button>
+    <button data-tab="list">计算机可报清单</button>
+    <button data-tab="score">分值测算</button>
+    <button data-tab="quick">快速入口</button>
+    <button data-tab="about">口径溯源</button>
+  </nav>
+
+  <!-- 视图一：时间报表 -->
+  <section class="pane active" id="pane-time">
+    <div class="pane-head">
+      <h2>时间报表</h2>
+    </div>
+    <div id="timeline" class="tl"></div>
+    <div class="chips" id="time-chips"></div>
+    <div id="time-body"></div>
+  </section>
+
+  <!-- 视图二：可报清单 -->
+  <section class="pane" id="pane-list">
+    <div class="pane-head">
+      <h2>计算机可报清单</h2>
+      <p class="hint">A 直接对口 · B 技术可跨 · C 通用组队。点名称展开明细。</p>
+    </div>
+    <div class="filters">
+      <input type="search" id="q" placeholder="搜索名称 / 别名 / 关键词 / 细分专业 / 切入…" autocomplete="off">
+      <select id="f-level"><option value="">级别：全部</option></select>
+      <select id="f-evidence"><option value="">证据：全部</option></select>
+      <select id="f-dept"><option value="">归口：全部</option></select>
+      <select id="f-status"><option value="">时间：全部</option></select>
+    </div>
+    <div class="chips" id="tier-chips"></div>
+    <p class="hint" id="list-hint"></p>
+    <div class="tw">
+      <table class="grid" id="list-table">
+        <thead><tr>
+          <th class="c-no" title="按可报清单重排；原序号见明细">序号</th><th>名称 / 展开</th><th class="c-tier">档位</th>
+          <th class="c-lv">级别</th><th>细分专业</th><th class="c-ev">证据</th><th class="c-st">时间</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 视图三：测算 -->
+  <section class="pane" id="pane-score">
+    <div class="pane-head">
+      <h2>分值 / 现金测算</h2>
+      <p class="hint">按 66 号附件2 的业绩分值矩阵与三条现金口径计算，不叠加。</p>
+    </div>
+    <div class="calc">
+      <label>选赛事（仅 A/B/C 可报）
+        <select id="c-event"></select>
+      </label>
+      <label>参赛口径
+        <select id="c-column"></select>
+      </label>
+      <label>获奖层级
+        <select id="c-award"></select>
+      </label>
+      <label>X 元/分（<span class="assume">假设值</span>）
+        <input type="number" id="c-x" value="5" min="0" step="0.5">
+      </label>
+    </div>
+    <div id="calc-result" class="calc-result"></div>
+    <div id="matrix"></div>
+  </section>
+
+  <!-- 视图四：快速入口 -->
+  <section class="pane" id="pane-quick">
+    <div class="pane-head">
+      <h2>快速入口</h2>
+      <p class="hint">常大校赛/校内组织群，号码取自 fit.json 的「切入」字段，未在别处另抄。</p>
+    </div>
+    <div id="quick-body" class="cards"></div>
+  </section>
+
+  <!-- 视图五：口径与溯源 -->
+  <section class="pane" id="pane-about">
+    <div class="pane-head">
+      <h2>口径与溯源</h2>
+      <p class="hint">每个数字都指向源文件；源文件由 tools/ 生成，本页只读不写。</p>
+    </div>
+    <div id="about-body"></div>
+  </section>
+
+  <footer class="foot" id="foot"></footer>
+</div>
+
+<!-- 回到顶部（滚过 400px 才出现） -->
+<button type="button" id="to-top" class="to-top" aria-label="回到顶部" title="回到顶部">↑</button>
+
+<!-- 统计卡展开用的抽屉（页面内，不开新窗口） -->
+<div class="drawer-mask" id="drawer-mask" hidden>
+  <aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+    <div class="drawer-head">
+      <h3 id="drawer-title">总表</h3>
+      <button class="drawer-x" id="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+    <div class="drawer-tools" id="drawer-tools"></div>
+    <div class="drawer-body" id="drawer-body"></div>
+  </aside>
+</div>
+
+<script src="./data/data.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>

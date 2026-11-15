@@ -1,0 +1,22 @@
+# 只把「纯静态站点」需要的东西推上公网仓库；本地服务端/凭据/测试脚本一律不进仓库。
+# 静态站点本体：index.html / app.js / style.css / data/data.js / vercel.json / README.md
+
+# 本地部署与穿透（含本机路径、隧道用法），不需要上公网
+serve.py
+启动.cmd
+更新并部署.cmd
+make_cert.ps1
+
+# 自签证书私钥
+certs/
+
+# 本地测试脚本与缓存
+_smoke.js
+_check_bundle.py
+__pycache__/
+*.pyc
+
+# 临时/系统文件
+data/data.js.tmp
+.DS_Store
+Thumbs.db
